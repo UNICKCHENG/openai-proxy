@@ -1,5 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
- 
+
+const prefix = process.env.API_BASE || 'https://api.openai.com';
+
 /**
  * 获取已经消费的金额
  * @param requestOptions 包含认证的请求体
@@ -11,7 +13,7 @@ async function getUsages(
     start_date: any,
     end_date: any
 ): Promise<number> {
-    const baseUrl: string = 'https://api.openai.com/v1/dashboard/billing/usage';
+    const baseUrl: string = `${prefix}/v1/dashboard/billing/usage`;
     const params: string = `end_date=${end_date}&start_date=${start_date}`;
     const response = await fetch(`${baseUrl}?${params}`, requestOptions);
 
@@ -30,7 +32,7 @@ async function getUsages(
 async function getSubscription(
     requestOptions: RequestInit
 ): Promise<number> {
-    const baseUrl: string = 'https://api.openai.com/v1/dashboard/billing/subscription';
+    const baseUrl: string = `${prefix}/v1/dashboard/billing/subscription`;
     const response = await fetch(`${baseUrl}`, requestOptions);
 
     const data = await response.json();

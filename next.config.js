@@ -1,3 +1,5 @@
+const prefix = process.env.API_BASE || 'https://api.openai.com';
+
 module.exports = {
     async rewrites() {
       return [
@@ -7,7 +9,7 @@ module.exports = {
         },
         {
           source: '/:slug*',
-          destination: 'https://api.openai.com/:slug*',
+          destination: `${prefix}/:slug*`,
         },
       ]
     },
