@@ -79,3 +79,8 @@ curl https://openai.aihey.cc/v1/chat/completions \
 ```
 cname-china.vercel-dns.com 
 ```
+
+## 💖 感谢
+- <https://vercel.com/docs>
+- <https://nextjs.org/docs>
+- <https://platform.openai.com/docs/api-reference>
