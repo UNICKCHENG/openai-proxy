@@ -2,7 +2,7 @@
 
 `openai-proxy` 是为中国用户提供的一个方案，即解决 openai api 无法正常请求。
 
-现在您只需要将 `https://api.openai.com/` 替换成 `https://openai.aihey.cc/` 即可使用。
+现在您只需要将 `https://api.openai.com/` 替换成 `https://openai.aihey.cc/` 即可食用。
 
 ```bash
 # openai api
@@ -28,24 +28,23 @@ curl https://openai.aihey.cc/v1/chat/completions \
 
 ## ✨ 新特征
 
-### 支持查询消耗量
+### 支持查询费用消耗量
 
-自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 无法通过 token (`sk-*****`) 来进行请求。
+> 自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 token (`sk-*****`) 的方式将无效.
 
 #### 方式1：使用 `openai-proxy`
 
 缺点：
-- 最多只能查询 100 天（结束日期 - 开始日期 <= 100 天）
-- 和网页端查看存在一定波动（这个不知道为啥，有了解的小伙伴欢迎在 ISSUES 指出）
+- 可能和网页端显示的数据存在一定差距（这个不知道为啥，有了解的小伙伴欢迎在 ISSUES 指出）
 
 ```bash
 # 指定统计开始日期和结束日期
-curl https://openai.aihey.cc/credit_grants?start_date=2023-02-10&end_date=2023-05-10 \
+curl https://openai.aihey.cc/billing/credit_grants?start_date=2022-05-10&end_date=2023-05-10 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-***********"
 
-# 不指定参数，默认统计开始日期为（今天-99 天），统计结束日期为（明天）
-curl https://openai.aihey.cc/credit_grants \
+# 不指定参数，默认统计最近 90 天的数据
+curl https://openai.aihey.cc/billing/credit_grants \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-**********"
 ```
@@ -59,7 +58,7 @@ curl https://openai.aihey.cc/credit_grants \
 ![](assets/openai.png)
 
 ```bash
-curl https://openai.aihey.cc/dashboard/billing/credit_grants\
+curl https://openai.aihey.cc/billing/credit_grants\
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sess-*****"
 ```
