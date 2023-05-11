@@ -18,8 +18,8 @@ interface Usages {
  * 获取已经消费的金额
  * 注意官方 api 接口是遵循左闭右开原则，因此需要将结束日期 + 1 天
  * @param requestOptions 包含认证的请求体
- * @param start_date 请求统计的开始日期(包含当天)
- * @param end_date 请求统计的结束日期(包含当天)
+ * @param startDate 请求统计的开始日期(包含当天)
+ * @param endDate 请求统计的结束日期(包含当天)
  */
 async function apiUsages (
     requestOptions: RequestInit, 
@@ -47,8 +47,8 @@ async function apiUsages (
  * 如 {start_date: 2022-11-11, end_date:2023-05-01}，
  * 将会被拆分为 [{start_date:2022-11-11, end_date:2023-02-09}, 
  *  {start_date:2022-02-10, end_date:2023-05-01}]
- * @param start_date 统计开始日期
- * @param end_date 统计结束日期
+ * @param startDate 统计的开始日期
+ * @param endDate 统计的结束日期
  */
 function dateToRange(
     startDate: string, 
@@ -79,8 +79,8 @@ function dateToRange(
 /**
  * 获取每个阶段的使用量，以及总使用量
  * @param requestOptions  包含认证的请求体
- * @param startDate 统计开始时间
- * @param endDate 统计结束时间
+ * @param startDate 统计的开始日期
+ * @param endDate 统计的结束日期
  */
 async function getUsages (
     requestOptions: RequestInit, 
