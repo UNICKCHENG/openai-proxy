@@ -20,8 +20,8 @@ async function apiCreditGrants (
 }
 
 /**
- * 当使用 token 作为认证时，则统计求和
- * 注意，该方法与网页页面的数据存在差距
+ * 当使用 key 作为认证时，则统计求和
+ * 注意，该方法与网页页面的数据存在差异
  * @param requestOptions 含认证的请求体
  * @param startDate 统计的开始日期
  * @param endDate 统计的结束日期
@@ -49,17 +49,17 @@ async function customCreditGrants (
 /**
  * 根据 authorization 类型进行不同的请求
  * @param requestOptions 包含认证的请求体
- * @param isToken 是否是 Token 认证，即 sk-****
+ * @param isToken 是否是 api key 认证，即 sk-****
  * @param startDate 统计的开始日期
  * @param endDate 统计的结束日期
  */
 async function getCreditGrants (
     requestOptions: ResponseInit,
-    isToken: boolean,
+    isKey: boolean,
     startDate: string,
     endDate: string
 ): Promise<any> {
-    if (isToken) {
+    if (isKey) {
         return await customCreditGrants(requestOptions, startDate, endDate);
     } else {
         return await apiCreditGrants(requestOptions);

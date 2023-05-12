@@ -2,6 +2,7 @@
 
 *.http
 .env
+.obsidian
 
 # dependencies
 yarn.lock

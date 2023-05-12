@@ -30,12 +30,12 @@ curl https://openai.aihey.cc/v1/chat/completions \
 
 ### 支持查询费用消耗量
 
-> 自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 token (`sk-*****`) 的方式将无效.
+> 自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 key (`sk-*****`) 的方式将无效。**不过您可以通过下述两个方式来请求**。
 
 #### 方式1：使用 `openai-proxy`
 
 缺点：
-- 可能和网页端显示的数据存在一定差距（这个不知道为啥，有了解的小伙伴欢迎在 ISSUES 指出）
+- 可能和网页端显示的数据存在差异（这个不知道为啥，有了解的小伙伴欢迎在 ISSUES 指出）
 
 ```bash
 # 指定统计开始日期和结束日期
@@ -78,7 +78,25 @@ curl https://openai.aihey.cc/billing/credit_grants\
 cname-china.vercel-dns.com 
 ```
 
+
+## 👉 声明
+
+### openai api key 会不会被盗用（重点）
+
+**不会，但也请不要放下警惕**。市面上已有很多同类**开源**的优秀产品，都不会恶意地盗用使用者的 key。但由于缺乏监控和不低的辨识成本，难免会出现这类情况。因此，在使用第三方平台的产品，**尽量使用一个定期更新的 key**。
+
+### 为什么创建这个项目
+
+因为想学[ Next.js](https://nextjs.org/docs)，所以有了这个项目。
+
+另外，这里只是提供一个方案，对于 API 请求速度并没得到多少提升，自行部署还需要额外提供域名，似乎听着就嫌麻烦。
+
+- 如果你是名爱折腾的开发者，或许也可以尝试 Nginx、Cloudflare 等方案
+- 如果你希望有个直接拿来用的方案，那么请放心大胆地白嫖
+
+
 ## 💖 感谢
+
 - <https://vercel.com/docs>
 - <https://nextjs.org/docs>
 - <https://platform.openai.com/docs/api-reference>

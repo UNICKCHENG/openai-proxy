@@ -14,8 +14,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     };
 
     try {
-        const isToken: boolean = req.headers['authorization'].startsWith("Bearer sk-");
-        const data = await getCreditGrants(requestOptions, isToken, start_date, end_date);
+        const isKey: boolean = req.headers['authorization'].startsWith("Bearer sk-");
+        const data = await getCreditGrants(requestOptions, isKey, start_date, end_date);
         res.status(200).json(data)
     } catch (error) {
         res.status(500).json({ 
