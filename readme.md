@@ -35,7 +35,7 @@ curl https://openai.aihey.cc/v1/chat/completions \
 #### 方式1：使用 `openai-proxy`
 
 缺点：
-- 可能和网页端显示的数据存在差异（这个不知道为啥，有了解的小伙伴欢迎在 ISSUES 指出）
+- 可能和网页端显示的数据存在差异（这个不知道为啥，有了解的小伙伴欢迎在 [ISSUES](https://github.com/UNICKCHENG/openai-proxy/issues) 指出）
 
 ```bash
 # 指定统计开始日期和结束日期
