@@ -7,8 +7,12 @@ module.exports = {
     async rewrites() {
       return [
         {
+            source: '/google/bard',
+            destination: `/api/google/bard`,
+        },
+        {
             source: '/billing/credit_grants',
-            destination: '/api/credit_grants',
+            destination: '/api/openai/credit_grants',
         },
         {
           source: '/:slug*',

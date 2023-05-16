@@ -28,6 +28,24 @@ curl https://openai.aihey.cc/v1/chat/completions \
 
 ## ✨ 新特征
 
+### 支持 Google Bard API（非官方）
+
+> **承诺：当 Google Bard 官方开放 API 时，将替换为官方 API 请求**
+
+借助 [PawanOsman/GoogleBard](https://github.com/PawanOsman/GoogleBard) 现成的封装，现支持通过 api 请求 Google Bard
+
+```bash
+curl https://openai.aihey.cc/google/bard \
+  -H "Content-Type: application/json" \
+  -d '{
+    "cookies": "__Secure-1PSID=**********************",
+    "prompt": "hello"
+  }'
+```
+
+> `__Secure-1PSID` 获取方式如下图，网页端打开 Google Bard 后，F12 查看 Cookies
+> ![googlebard.png](assets/googlebard.png)
+
 ### 支持查询费用消耗量
 
 > 自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 key (`sk-*****`) 的方式将无效。**不过您可以通过下述两个方式来请求**。
@@ -102,3 +120,4 @@ cname-china.vercel-dns.com
 - <https://vercel.com/docs>
 - <https://nextjs.org/docs>
 - <https://platform.openai.com/docs/api-reference>
+- https://github.com/PawanOsman/GoogleBard

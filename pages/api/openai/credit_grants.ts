@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from 'next';
-import { getCreditGrants } from '../../openai/credit_grants';
-import { getDefaultDateRange } from '../../utils/date';
+import { getCreditGrants } from '../../../openai/credit_grants';
+import { getDefaultDateRange } from '../../../utils/date';
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { default_start_date, default_end_date } = getDefaultDateRange();
