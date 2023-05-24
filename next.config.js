@@ -11,6 +11,10 @@ module.exports = {
             destination: `/api/google/bard`,
         },
         {
+            source: '/ai-topia/:slug*',
+            destination: 'https://open.ai-topia.com/:slug*',
+        },
+        {
             source: '/billing/credit_grants',
             destination: '/api/openai/credit_grants',
         },
