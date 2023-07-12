@@ -5,7 +5,15 @@ module.exports = {
         API_BASE: `${prefix}`,
     },
     async rewrites() {
-      return [
+      return  [
+        {
+            source: '/api/claude/organizations/:orgId/chat_conversations',
+            destination: '/api/claude/:orgId/chat_conversations',
+        },
+        {
+            source: '/claude/:slug*',
+            destination: 'https://claude.ai/api/:slug*',
+        },
         {
             source: '/google/bard',
             destination: `/api/google/bard`,
@@ -22,7 +30,7 @@ module.exports = {
           source: '/:slug*',
           destination: `${prefix}/:slug*`,
         },
-      ]
+        ]
     },
 }
   
