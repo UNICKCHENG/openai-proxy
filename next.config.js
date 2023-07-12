@@ -7,12 +7,8 @@ module.exports = {
     async rewrites() {
       return  [
         {
-            source: '/api/claude/organizations/:orgId/chat_conversations',
-            destination: '/api/claude/:orgId/chat_conversations',
-        },
-        {
             source: '/claude/:slug*',
-            destination: 'https://claude.ai/api/:slug*',
+            destination: '/api/claude/:slug*',
         },
         {
             source: '/google/bard',
@@ -27,7 +23,7 @@ module.exports = {
             destination: '/api/openai/credit_grants',
         },
         {
-          source: '/:slug*',
+          source: '/openai:slug*',
           destination: `${prefix}/:slug*`,
         },
         ]
