@@ -24,9 +24,9 @@ function dateAdd (date: string, days: number): string {
  * 获取当前日期和 90 天前的日期
  */
 function getDefaultDateRange(): any {
-    const default_end_date: string = new Date().toISOString().substr(0, 10);
-    const default_start_date: string = dateSub(default_end_date, 90);
-    return {default_start_date, default_end_date};
+    const end_date: string = new Date().toISOString().substr(0, 10);
+    const start_date: string = dateSub(end_date, 90);
+    return {end_date, start_date};
 }
 
 export { dateSub, dateAdd, getDefaultDateRange };
