@@ -5,7 +5,11 @@ module.exports = {
         API_BASE: `${prefix}`,
     },
     async rewrites() {
-      return [
+      return  [
+        {
+            source: '/claude/:slug*',
+            destination: '/api/claude/:slug*',
+        },
         {
             source: '/google/bard',
             destination: `/api/google/bard`,
@@ -19,10 +23,10 @@ module.exports = {
             destination: '/api/openai/credit_grants',
         },
         {
-          source: '/:slug*',
+          source: '/openai:slug*',
           destination: `${prefix}/:slug*`,
         },
-      ]
+        ]
     },
 }
   

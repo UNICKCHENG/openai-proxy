@@ -8,13 +8,13 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const requestOptions: RequestInit = {
         method: 'GET',
         headers: { 
-            'Content-Type': req.headers['content-type'],
-            'Authorization': req.headers['authorization']
+            'Content-Type': req.headers['content-type'] as string,
+            'Authorization': req.headers['authorization'] as string
         }
     };
 
     try {
-        const isKey: boolean = req.headers['authorization'].startsWith("Bearer sk-");
+        const isKey: boolean = (req.headers['authorization'] as string).startsWith("Bearer sk-");
         const data = await getCreditGrants(requestOptions, isKey, start_date, end_date);
         res.status(200).json(data)
     } catch (error) {
