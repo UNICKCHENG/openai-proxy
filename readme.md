@@ -1,8 +1,10 @@
 # Hi, there 👋
 
+API 文档请查看 👉 https://openai-proxy.apifox.cn
+
 `openai-proxy` 是为中国用户提供的一个方案，即解决 openai api 无法正常请求。
 
-现在您只需要将 `https://api.openai.com/` 替换成 `https://openai.aihey.cc/` 即可食用。
+现在您只需要将 `https://api.openai.com/` 替换成 `https://openai.aihey.cc/openai` 即可食用。
 
 ```bash
 # openai api
@@ -15,7 +17,7 @@ curl https://api.openai.com/v1/chat/completions \
   }'
 
 # 替换后
-curl https://openai.aihey.cc/v1/chat/completions \
+curl https://openai.aihey.cc/openai/v1/chat/completions \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer $OPENAI_API_KEY" \
   -d '{
@@ -28,7 +30,7 @@ curl https://openai.aihey.cc/v1/chat/completions \
 
 ## ✨ 新特征
 
-### 支持 Google Bard API（非官方）
+### 支持 Google Bard API（非官方）[目前存在问题]
 
 > **承诺：当 Google Bard 官方开放 API 时，将替换为官方 API 请求**
 
@@ -57,12 +59,12 @@ curl https://openai.aihey.cc/google/bard \
 
 ```bash
 # 指定统计开始日期和结束日期
-curl https://openai.aihey.cc/billing/credit_grants?start_date=2022-05-10&end_date=2023-05-10 \
+curl https://openai.aihey.cc/openai/billing/credit_grants?start_date=2022-05-10&end_date=2023-05-10 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-***********"
 
 # 不指定参数，默认统计最近 90 天的数据
-curl https://openai.aihey.cc/billing/credit_grants \
+curl https://openai.aihey.cc/openai/billing/credit_grants \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sk-**********"
 ```
@@ -76,7 +78,7 @@ curl https://openai.aihey.cc/billing/credit_grants \
 ![](assets/openai.png)
 
 ```bash
-curl https://openai.aihey.cc/billing/credit_grants\
+curl https://openai.aihey.cc/openai/billing/credit_grants\
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer sess-*****"
 ```
