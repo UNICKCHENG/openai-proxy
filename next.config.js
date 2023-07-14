@@ -23,8 +23,8 @@ module.exports = {
             destination: '/api/openai/billing/credit_grants',
         },
         {
-          source: '/openai:slug*',
-          destination: `${prefix}/:slug*`,
+            source: '/openai:slug*',
+            destination: `${prefix}/:slug*`,
         },
         ]
     },
