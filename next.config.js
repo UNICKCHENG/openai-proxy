@@ -19,8 +19,8 @@ module.exports = {
             destination: 'https://open.ai-topia.com/:slug*',
         },
         {
-            source: '/billing/credit_grants',
-            destination: '/api/openai/credit_grants',
+            source: '/openai/billing/credit_grants',
+            destination: '/api/openai/billing/credit_grants',
         },
         {
           source: '/openai:slug*',
