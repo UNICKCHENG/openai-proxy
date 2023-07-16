@@ -21,8 +21,8 @@ export async function POST(
         const stream = service.iteratorToStream(response);
         return new Response(stream);
     } else {
-        return NextResponse.json(
-            await service.claudeToOpenaiResponse(response)
-        );
+        const content = await service.readerStream(response);
+        const result = await service.claudeToOpenaiResponse(content);
+        return new Response(result);
     }
 }

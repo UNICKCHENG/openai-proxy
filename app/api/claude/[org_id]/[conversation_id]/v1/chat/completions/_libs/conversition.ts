@@ -8,7 +8,8 @@ interface Message {
     function_call?: object,
 }
 
-const readerStream = async(reader: any) => {
+export const readerStream = async(response: any) => {
+    const reader = response.body?.getReader();
     const decoder = new TextDecoder("utf-8");
     let content: string = "";
     while (true) {
@@ -119,10 +120,8 @@ export const openaiToClaudeRequest = (
 /**
  * claude 结果转为 openai api 响应体格式
  */
-export const claudeToOpenaiResponse = async(response: any) => {
-    const reader = response.body?.getReader();
-    const content = await readerStream(reader);
-    return {
+export const claudeToOpenaiResponse = async(content: string) => {
+    return JSON.stringify({
         "id": uuidv1().toString(),
         "object": "chat.completion",
         "created": Date.parse(new Date().toString()),
@@ -139,6 +138,6 @@ export const claudeToOpenaiResponse = async(response: any) => {
           "completion_tokens": 0,
           "total_tokens": 0
         }
-    }
+    });
 }
 
