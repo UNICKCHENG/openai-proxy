@@ -28,7 +28,7 @@
     "@types/react-dom": "^18.2.7",
     "@vercel/analytics": "^1.0.1",
     "conventional-changelog-conventionalcommits": "5.0.0",
-    "semantic-release": "21.0.2",
+    "semantic-release": "21.0.7",
     "standard-changelog": "^3.0.0",
     "typescript": "^5.0.4"
   }
