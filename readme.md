@@ -178,7 +178,7 @@ cname-china.vercel-dns.com
 - 如果你是名爱折腾的开发者，或许也可以尝试 Nginx、Cloudflare 等方案
 - 如果你希望有个直接拿来用的方案，那么请放心大胆地白嫖
 
-![](8f0eedf67fcd0737026370624a8dfa8.jpg)
+![](assets/support.jpg)
 
 
 ## 💖 感谢
