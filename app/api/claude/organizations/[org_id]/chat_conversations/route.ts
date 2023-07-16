@@ -9,7 +9,7 @@ export async function GET(
     request: NextRequest, 
     { params }: { params: { org_id: string }}
 ) {
-    const base_url: string = `https://claude.ai/api/organizations/${params.org_id}/chat_conversations`;
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations`;
     const init: RequestInit = {
         method: 'GET',
         headers: {

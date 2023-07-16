@@ -7,7 +7,7 @@ import { AnthropicStream, StreamingTextResponse } from 'ai'
  * @returns 流式输出
  */
 export async function POST(request: NextRequest) {
-    const base_url: string = `https://claude.ai/api/append_message`;
+    const base_url: string = `${process.env.CLAUDE_BASE}/append_message`;
     const init: RequestInit = {
         method: 'POST',
         headers: {

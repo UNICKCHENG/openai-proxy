@@ -10,7 +10,7 @@ async function handler(
     request: NextRequest, 
     { params }: { params: { org_id: string, conversation_id: string}}
 ) {
-    const base_url: string = `https://claude.ai/api/organizations/${params.org_id}/chat_conversations/${params.conversation_id}`;
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations/${params.conversation_id}`;
     const init: RequestInit = {
         method: request.method,
         headers: {

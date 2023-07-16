@@ -6,7 +6,7 @@ import { AnthropicStream, StreamingTextResponse } from 'ai'
  * 重新生成内容
  */
 export async function POST(request: NextRequest) {
-    const base_url: string = `https://claude.ai/api/retry_message`;
+    const base_url: string = `${process.env.CLAUDE_BASE}/retry_message`;
     const init: RequestInit = {
         method: 'POST',
         headers: {

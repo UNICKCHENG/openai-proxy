@@ -1,8 +1,10 @@
 const prefix = process.env.API_BASE || 'https://api.openai.com';
+const claude_prefix = process.env.CLAUDE_BASE || 'https://claude.ai/api';
 
 module.exports = {
     env: {
         API_BASE: `${prefix}`,
+        CLAUDE_BASE: `${claude_prefix}`
     },
     async rewrites() {
       return  [
@@ -29,4 +31,3 @@ module.exports = {
         ]
     },
 }
-  
