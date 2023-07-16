@@ -1,6 +1,6 @@
 {
   "name": "openai-proxy",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "openai-proxy is a solution provided for Chinese users to address the issue of being unable to make requests to the OpenAI API.",
   "author": "",
   "license": "MIT",
