@@ -1,6 +1,4 @@
-import { ReadableStream } from 'stream/web' 
-import { NextRequest, NextResponse } from 'next/server'
-import { AnthropicStream, StreamingTextResponse } from 'ai'
+import { NextRequest } from 'next/server'
 import * as service from './_libs'
 
 /**
@@ -10,19 +8,34 @@ import * as service from './_libs'
  */
 export async function POST(
     request: NextRequest,
-    { params }: { params: { org_id: string, conversation_id: string}}
+    { params }: { params: { org_id: string, conversation_id: string } }
 ) {
     const base_url: string = `${process.env.CLAUDE_BASE}/append_message`;
-    const { messages, stream=false } = await request.json();
+    const { messages, stream = false } = await request.json();
     const init: RequestInit = service.openaiToClaudeRequest(messages, params.org_id, params.conversation_id);
     const response = await fetch(base_url, init);
 
+    if (!response.ok) {
+        return new Response(response.body, { status: 400 })
+    }
+
     if (stream) {
-        const stream = service.iteratorToStream(response);
-        return new Response(stream);
+        const stream = await service.iteratorToStream(response);
+        return new Response(stream, {
+            headers: {
+                'Content-Type': 'text/event-stream',
+                'Connection': 'keep-alive',
+                'Cache-Control': 'no-cache, no-transform',
+            },
+        });
     } else {
-        const content = await service.readerStream(response);
-        const result = await service.claudeToOpenaiResponse(content);
-        return new Response(result);
+        const result = await service.readerStream(response);
+        return new Response(result, {
+            headers: {
+                'Content-Type': 'text/event-stream',
+                'Connection': 'keep-alive',
+                'Cache-Control': 'no-cache, no-transform',
+            },
+        });
     }
 }

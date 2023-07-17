@@ -8,23 +8,6 @@ interface Message {
     function_call?: object,
 }
 
-export const readerStream = async(response: any) => {
-    const reader = response.body?.getReader();
-    const decoder = new TextDecoder("utf-8");
-    let content: string = "";
-    while (true) {
-        try {
-            const { done, value }: any = await reader?.read();
-            const lines = decoder.decode(value);
-            content += lines;
-            if( done ) { break; }
-        } catch(err: any) {
-            continue;
-        }
-    }
-    return content;
-}
-
 /**
  * 生成的 prompt 格式，可参考下述例子 
  * 
@@ -52,7 +35,7 @@ export const readerStream = async(response: any) => {
 const generatePrompt = (
     messages: Message[]
 ) => {
-    if(messages.length < 1) {
+    if (messages.length < 1) {
         throw new Error('Request body parameter error, please check if messages is missing.');
     }
 
@@ -60,13 +43,13 @@ const generatePrompt = (
     let assistant_prompt: string = '';
     let user_prompt: string = '';
     let last_message: Message = messages.pop()!;
-    if('user' != last_message.role) {
+    if ('user' != last_message.role) {
         throw new Error('Please check if there is user information in the messages, like {"role": "user", "content": "Hello!"}');
     }
 
     user_prompt = last_message.content;
-    for(let msg of messages) {
-        switch(msg.role) {
+    for (let msg of messages) {
+        switch (msg.role) {
             case 'system':
                 system_prompt = msg.content;
                 break;
@@ -78,7 +61,7 @@ const generatePrompt = (
     }
 
     let prompt: string = "";
-    if(assistant_prompt && '' != assistant_prompt) {
+    if (assistant_prompt && '' != assistant_prompt) {
         prompt = `Tips: ${assistant_prompt} \nPlease refer to the prompts above for your answer (Return the results of the question):\n`
     }
     prompt += user_prompt;
@@ -105,9 +88,9 @@ export const openaiToClaudeRequest = (
         redirect: 'follow',
         body: JSON.stringify({
             "completion": {
-              "prompt": prompt,
-              "timezone": "Asia/Shanghai",
-              "model": "claude-2"
+                "prompt": prompt,
+                "timezone": "Asia/Shanghai",
+                "model": "claude-2"
             },
             "organization_uuid": org_id,
             "conversation_uuid": conversation_id,
@@ -120,24 +103,45 @@ export const openaiToClaudeRequest = (
 /**
  * claude 结果转为 openai api 响应体格式
  */
-export const claudeToOpenaiResponse = async(content: string) => {
+const claudeToOpenaiResponse = (content: string) => {
     return JSON.stringify({
         "id": uuidv1().toString(),
         "object": "chat.completion",
         "created": Date.parse(new Date().toString()),
         "choices": [{
-          "index": 0,
-          "message": {
-            "role": "assistant",
-            "content": content,
-          },
-          "finish_reason": "stop"
+            "index": 0,
+            "message": {
+                "role": "assistant",
+                "content": content,
+            },
+            "finish_reason": "stop"
         }],
         "usage": {
-          "prompt_tokens": 0,
-          "completion_tokens": 0,
-          "total_tokens": 0
+            "prompt_tokens": 0,
+            "completion_tokens": 0,
+            "total_tokens": 0
         }
     });
+}
+
+
+export async function readerStream(response: any) {
+    const decoder = new TextDecoder("utf-8");
+    const encoder = new TextEncoder();
+    const reader = response.body?.getReader();
+    let content: string = '';
+
+    return new ReadableStream({
+        async pull(controller) {
+            const { value, done } = await reader?.read();
+            if (done) {
+                controller.enqueue(encoder.encode(claudeToOpenaiResponse(content)));
+                controller.close();
+            } else {
+                controller.enqueue(encoder.encode(""));
+                content += decoder.decode(value);
+            }
+        },
+    })
 }
 
