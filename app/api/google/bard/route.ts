@@ -1,4 +1,4 @@
-import { NextRequest } from 'next/server'
+import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
 import { Bard } from "googlebard"
 import { cache } from 'react'
@@ -13,7 +13,7 @@ const googlebard = async (
     conversationId?: string
 ) => {
     let bot = bard(token);
-    return await bot.askStream((res) => { }, prompt, conversationId);
+    return await bot.ask(prompt, conversationId || 'default');
 }
 
 export async function POST(req: NextRequest) {
@@ -21,14 +21,8 @@ export async function POST(req: NextRequest) {
     const cookie = `__Secure-1PSID=${cookies().get("__Secure-1PSID")?.value}, __Secure-1PSIDTS=${cookies().get("__Secure-1PSIDTS")?.value}`;
     try {
         const data = await googlebard(cookie, prompt, conversationId);
-        return new Response(data, {
-            headers: {
-                'Content-Type': 'text/event-stream',
-                'Connection': 'keep-alive',
-                'Cache-Control': 'no-cache, no-transform',
-            },
-        });
+        return NextResponse.json(data);
     } catch (error) {
-        return new Response(error, { status: 400 });
+        return NextResponse.json(error, { status: 400 });
     }
 }
