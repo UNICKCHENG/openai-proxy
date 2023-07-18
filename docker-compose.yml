@@ -1,0 +1,22 @@
+# Hi, this is a Docker service startup configuration.
+# Please make sure to configure the .env file in this project's root directory before proceeding.
+# you can directly execute the following command to start the service.
+# $ docker compose up -d
+
+version: '3.9'
+
+services:
+  openai-proxy:
+    image: unickcheng/openai-proxy:latest
+    container_name: openai-proxy
+    restart: unless-stopped
+    ports:
+      - 13000:3000
+    environment:
+      - TZ=Asia/Shanghai
+    
+    # If you need to configure additional environment variables, 
+    # please configure the .env file in advance
+    # If not, comment out the following two lines
+    env_file:
+      - .env
