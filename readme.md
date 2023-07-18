@@ -7,8 +7,10 @@ API 文档请查看 👉 https://openai-proxy.apifox.cn
 - ✅ OpenAI API 请求超时
 - ✅ OpenAI API  不支持查询费用消耗量
 - ✅ Claude API 还在等待列表中
-- ✅ Google Bard 没有提供 API（目前存在问题，正在修复。。。）
+- ✅ Google Bard 没有提供 API
 - 。。。
+
+---
 
 ## OpenAI API 请求超时
 
@@ -116,6 +118,7 @@ curl -X POST 'http://openai.aihey.cc/claude/append_message' \
 curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178/5446798e-0e11-4e8f-994c-3d8386f01bd6/v1/chat/completions' \
 --header 'Accept: */*' \
 --header 'Content-Type: application/json' \
+--header 'Authorization: Bearer your-sessionKey' \
 --data-raw '{
     "model":"gpt-3.5-turbo",
     "messages": [
@@ -127,22 +130,24 @@ curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178
 
 更多接口请参考 https://openai-proxy.apifox.cn/doc-2721086
 
-### 支持 Google Bard API（非官方）[目前存在问题]
+### 支持 Google Bard API（非官方）
 
 > **承诺：当 Google Bard 官方开放 API 时，将替换为官方 API 请求**
+> 官方 API 申请：https://www.googlecloudcommunity.com/gc/AI-ML/Google-Bard-API/m-p/538517
 
 借助 [PawanOsman/GoogleBard](https://github.com/PawanOsman/GoogleBard) 现成的封装，现支持通过 api 请求 Google Bard
 
 ```bash
-curl https://openai.aihey.cc/google/bard \
+curl -X POST https://openai.aihey.cc/google/bard \
   -H "Content-Type: application/json" \
-  -H "__Secure-1PSID=**********************"
+  -H "Cookie: __Secure-1PSID=*****;__Secure-1PSIDTS=*******" \
   -d '{
     "prompt": "hello"
   }'
 ```
 
-> `__Secure-1PSID` 获取方式如下图，网页端打开 Google Bard 后，F12 查看 Cookies
+> `__Secure-1PSID` 获取方式如下图，网页端打开 Google Bard 后，F12 查看 Cookies。
+> `__Secure-1PSIDTS` 获取方式同理
 > ![googlebard.png](assets/googlebard.png)
 
 ## 🎉 自行部署
@@ -159,7 +164,6 @@ curl https://openai.aihey.cc/google/bard \
 ```
 cname-china.vercel-dns.com 
 ```
-
 
 ## 👉 一些疑问
 
