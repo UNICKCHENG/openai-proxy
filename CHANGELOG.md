@@ -1,3 +1,10 @@
+## [0.3.2](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.1...v0.3.2) (2023-07-18)
+
+
+### Bug Fixes
+
+* **google-bard:** fix googlebard api invalid ([7eb45a2](https://github.com/UNICKCHENG/openai-proxy/commit/7eb45a231fd16857210c35f4193c95c2f9d1bd70))
+
 ## [0.3.1](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.0...v0.3.1) (2023-07-17)
 
 
