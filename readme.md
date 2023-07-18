@@ -130,9 +130,10 @@ curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178
 
 更多接口请参考 https://openai-proxy.apifox.cn/doc-2721086
 
-### 支持 Google Bard API（非官方）
+## 支持 Google Bard API（非官方）
 
 > **承诺：当 Google Bard 官方开放 API 时，将替换为官方 API 请求**
+
 > 官方 API 申请：https://www.googlecloudcommunity.com/gc/AI-ML/Google-Bard-API/m-p/538517
 
 借助 [PawanOsman/GoogleBard](https://github.com/PawanOsman/GoogleBard) 现成的封装，现支持通过 api 请求 Google Bard
@@ -152,18 +153,29 @@ curl -X POST https://openai.aihey.cc/google/bard \
 
 ## 🎉 自行部署
 
-#### step 1: 使用 vercel 部署
+### 方式 1：使用 vercel 部署
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=openai-proxy&repository-name=openai-proxy&repository-url=https://github.com/UNICKCHENG/openai-proxy&from=github)
 
-#### step 4: 自定义域名
+自定义域名
 
 ![](assets/vercel.png)
 
-#### step 2: 去域名服务商添加 CNAME
+去域名服务商添加 CNAME
 ```
 cname-china.vercel-dns.com 
 ```
+
+### 方式 2：使用 Docker
+
+```bash
+docker run -itd --name test -p 13000:3000  unickcheng/openai-proxy
+
+# 查看服务
+docker ps -a
+```
+
+如果你熟悉 docker compose，可参考 [docker-compose.yml](./docker-compose.yml) 文件，使用 `docker compose up -d` 命令来启动服务
 
 ## 👉 一些疑问
 
