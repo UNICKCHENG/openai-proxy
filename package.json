@@ -5,7 +5,6 @@
   "author": "",
   "license": "MIT",
   "scripts": {
-    "preinstall": "npx only-allow npm",
     "dev": "next",
     "build": "next build",
     "start": "next start",

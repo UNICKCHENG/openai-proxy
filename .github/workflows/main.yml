@@ -17,6 +17,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
       - uses: actions/setup-node@v3
         with:
           node-version: "18"
@@ -34,5 +36,5 @@ jobs:
         run: npx semantic-release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          DOCKER_USERNAME: ${{ github.actor }}
+          DOCKER_USERNAME: unickcheng
           DOCKER_PASSWORD: ${{ secrets.DOCKER_TOKEN }}
