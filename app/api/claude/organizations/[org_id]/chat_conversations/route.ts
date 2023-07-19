@@ -6,8 +6,8 @@ import { v1 as uuidv1 } from 'uuid'
  * 查看所有会话
  */
 export async function GET(
-    request: NextRequest, 
-    { params }: { params: { org_id: string }}
+    request: NextRequest,
+    { params }: { params: { org_id: string } }
 ) {
     const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations`;
     const init: RequestInit = {
@@ -18,8 +18,8 @@ export async function GET(
         }
     }
     const data = await fetch(base_url, init);
-    if(!data.ok) {
-        return NextResponse.json(data, {status: 400});
+    if (!data.ok) {
+        return NextResponse.json(data, { status: 400 });
     }
     return NextResponse.json(await data.json());
 }
@@ -29,10 +29,10 @@ export async function GET(
  * 新建会话
  */
 export async function POST(
-    request: NextRequest, 
-    { params }: { params: { org_id: string }}
+    request: NextRequest,
+    { params }: { params: { org_id: string } }
 ) {
-    const base_url: string = `https://claude.ai/api/organizations/${params.org_id}/chat_conversations`;
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations`;
     let { uuid, name } = await request.json();
 
     const init: RequestInit = {
@@ -48,8 +48,8 @@ export async function POST(
         })
     }
     const data = await fetch(base_url, init);
-    if(!data.ok) {
-        return NextResponse.json(data, {status: 400});
+    if (!data.ok) {
+        return NextResponse.json(data, { status: 400 });
     }
     return NextResponse.json(await data.json());
 }

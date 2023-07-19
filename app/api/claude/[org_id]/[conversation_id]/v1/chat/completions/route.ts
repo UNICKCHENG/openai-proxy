@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import * as service from './_libs'
+import { NextURL } from 'next/dist/server/web/next-url';
 
 /**
  * 生成 AI 内容
@@ -10,10 +11,9 @@ export async function POST(
     request: NextRequest,
     { params }: { params: { org_id: string, conversation_id: string } }
 ) {
-    const base_url: string = `${process.env.CLAUDE_BASE}/append_message`;
     const { messages, stream = false } = await request.json();
     const init: RequestInit = service.openaiToClaudeRequest(messages, params.org_id, params.conversation_id);
-    const response = await fetch(base_url, init);
+    const response = await fetch(new URL('/api/claude/append_message', request.url), init);
 
     if (!response.ok) {
         return new Response(response.body, { status: 400 })
@@ -32,7 +32,7 @@ export async function POST(
         const result = await service.readerStream(response);
         return new Response(result, {
             headers: {
-                'Content-Type': 'text/event-stream',
+                'Content-Type': 'application/json',
                 'Connection': 'keep-alive',
                 'Cache-Control': 'no-cache, no-transform',
             },

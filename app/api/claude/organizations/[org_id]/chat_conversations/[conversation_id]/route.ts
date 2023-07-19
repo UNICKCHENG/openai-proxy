@@ -7,8 +7,8 @@ import { cookies } from 'next/headers'
  * 当 method = GET 时，查看当前会话历史记录
  */
 async function handler(
-    request: NextRequest, 
-    { params }: { params: { org_id: string, conversation_id: string}}
+    request: NextRequest,
+    { params }: { params: { org_id: string, conversation_id: string } }
 ) {
     const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations/${params.conversation_id}`;
     const init: RequestInit = {
@@ -20,8 +20,8 @@ async function handler(
         }
     }
     const data = await fetch(base_url, init);
-    if(!data.ok) {
-        return NextResponse.json(data, {status: 400});
+    if (!data.ok) {
+        return NextResponse.json(data, { status: 400 });
     }
 
     try {
@@ -31,4 +31,4 @@ async function handler(
     }
 }
 
-export { handler as GET, handler as DELETE}
+export { handler as GET, handler as DELETE }

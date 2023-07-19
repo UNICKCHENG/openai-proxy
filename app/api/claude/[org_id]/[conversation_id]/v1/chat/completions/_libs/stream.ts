@@ -10,6 +10,7 @@ export async function iteratorToStream(response: any) {
     const decoder = new TextDecoder("utf-8");
     const task_id: string = uuidv1().toString();
     const reader = response.body?.getReader();
+    let recorder: string = '';
 
     return new ReadableStream({
         async start(controller) {
@@ -22,7 +23,12 @@ export async function iteratorToStream(response: any) {
                 controller.enqueue(text_encoder("[DONE]"));
                 controller.close();
             } else {
-                controller.enqueue(text_encoder(generateStreamResponse(decoder.decode(value), task_id)));
+                let content: string = decoder.decode(value);
+                if (content.startsWith(recorder)) {
+                    content = content.substring(recorder.length);
+                    recorder += content;
+                }
+                controller.enqueue(text_encoder(generateStreamResponse(content, task_id)));
             }
         },
     })

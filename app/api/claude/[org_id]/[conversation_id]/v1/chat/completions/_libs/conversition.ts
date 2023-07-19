@@ -127,21 +127,16 @@ const claudeToOpenaiResponse = (content: string) => {
 
 export async function readerStream(response: any) {
     const decoder = new TextDecoder("utf-8");
-    const encoder = new TextEncoder();
     const reader = response.body?.getReader();
     let content: string = '';
 
-    return new ReadableStream({
-        async pull(controller) {
-            const { value, done } = await reader?.read();
-            if (done) {
-                controller.enqueue(encoder.encode(claudeToOpenaiResponse(content)));
-                controller.close();
-            } else {
-                controller.enqueue(encoder.encode(""));
-                content += decoder.decode(value);
-            }
-        },
-    })
-}
+    while (true) {
+        const { done, value }: any = await reader?.read();
+        content += decoder.decode(value);
+        if (done) {
+            break;
+        }
+    }
 
+    return claudeToOpenaiResponse(content);
+}
