@@ -1,10 +1,12 @@
 const prefix = process.env.API_BASE || 'https://api.openai.com';
 const claude_prefix = process.env.CLAUDE_BASE || 'https://claude.ai/api';
+const rate_limit = process.env.UPSTASH_RATE_LIMIT || 12;
 
 module.exports = {
     env: {
-        API_BASE: `${prefix}`,
-        CLAUDE_BASE: `${claude_prefix}`
+        API_BASE: prefix,
+        CLAUDE_BASE: claude_prefix,
+        UPSTASH_RATE_LIMIT: rate_limit
     },
     async rewrites() {
       return  [

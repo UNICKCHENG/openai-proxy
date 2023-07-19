@@ -11,6 +11,7 @@
     "changelog": "standard-changelog"
   },
   "dependencies": {
+    "@upstash/ratelimit": "^0.4.3",
     "ai": "^2.1.22",
     "googlebard": "^1.0.7",
     "next": "latest",
@@ -29,6 +30,7 @@
     "@types/react-dom": "^18.2.7",
     "@vercel/analytics": "^1.0.1",
     "conventional-changelog-conventionalcommits": "6.1.0",
+    "encoding": "^0.1.13",
     "semantic-release": "21.0.7",
     "standard-changelog": "^3.0.0",
     "typescript": "^5.0.4"
