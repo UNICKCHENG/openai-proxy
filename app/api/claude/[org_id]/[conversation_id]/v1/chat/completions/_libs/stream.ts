@@ -35,29 +35,29 @@ export async function iteratorToStream(response: any) {
 }
 
 const generateStreamResponseStart = (task_id: string) => {
-    return JSON.stringify({
+    return "data: " + JSON.stringify({
         "id": task_id,
         "object": "chat.completion.chunk", "created": Date.parse(new Date().toString()),
         "model": "claude-v2",
-        "choices": [{ "delta": { "role": "assistant" }, "index": 0, "finish_reason": null }]
-    }) + "\n";
+        "choices": [{ "index": 0, "delta": { "role": "assistant", "content": "" }, "finish_reason": null }]
+    }) + "\n\n";
 }
 
 const generateStreamResponse = (content: string, task_id: string) => {
-    return JSON.stringify({
+    return "data: " + JSON.stringify({
         "id": task_id,
         "object": "chat.completion.chunk",
         "created": Date.parse(new Date().toString()),
         "model": "claude-v2",
         "choices": [{ "delta": { "content": content }, "index": 0, "finish_reason": null }]
-    }) + "\n";
+    }) + "\n\n";
 }
 
 const generateStreamResponseStop = (task_id: string) => {
-    return JSON.stringify({
+    return "data: " + JSON.stringify({
         "id": task_id,
         "object": "chat.completion.chunk", "created": Date.parse(new Date().toString()),
         "model": "chatglm-6b",
         "choices": [{ "delta": {}, "index": 0, "finish_reason": "stop" }]
-    }) + "\n";
+    }) + "\n\n";
 }
