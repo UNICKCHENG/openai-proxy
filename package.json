@@ -20,7 +20,6 @@
     "uuid": "^9.0.0"
   },
   "devDependencies": {
-    "@semantic-release-plus/docker": "^3.1.2",
     "@semantic-release/changelog": "6.0.3",
     "@semantic-release/exec": "6.0.3",
     "@semantic-release/git": "10.0.1",
