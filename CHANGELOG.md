@@ -1,3 +1,11 @@
+## [0.3.3](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.2...v0.3.3) (2023-07-21)
+
+
+### Bug Fixes
+
+* **claude:** adapt the gpt-like streaming response format ([8f92171](https://github.com/UNICKCHENG/openai-proxy/commit/8f9217155806a4a001396765a900647b9dd6a934))
+* **claude:** fix gpt-like interface errors ([9fa35cb](https://github.com/UNICKCHENG/openai-proxy/commit/9fa35cb46044c399492a5a837d667a39c50922a6))
+
 ## [0.3.2](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.1...v0.3.2) (2023-07-18)
 
 
