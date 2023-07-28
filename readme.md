@@ -166,7 +166,11 @@ curl -X POST https://openai.aihey.cc/google/bard \
 cname-china.vercel-dns.com 
 ```
 
-### 方式 2：使用 Docker
+### 方式 2：使用 Sealos 部署
+
+[![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dopenai-proxy)
+
+### 方式 3：使用 Docker
 
 ```bash
 docker run -itd --name test -p 13000:3000  unickcheng/openai-proxy
