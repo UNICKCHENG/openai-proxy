@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
-import { v1 as uuidv1 } from 'uuid'
+import * as claude from '@/libs/claude'
 
 /**
  * 查看所有会话
@@ -9,21 +9,13 @@ export async function GET(
     request: NextRequest,
     { params }: { params: { org_id: string } }
 ) {
-    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations`;
-    const init: RequestInit = {
-        method: 'GET',
-        headers: {
-            'Accept': 'application/json',
-            'Cookie': `sessionKey=${cookies().get('sessionKey')?.value}`,
-        }
+    try {
+        const data = await claude.getConversations(params.org_id, cookies().get('sessionKey')?.value!);
+        return NextResponse.json(data);
+    } catch (err: any) {
+        return NextResponse.json(err.messages, { status: 400 });
     }
-    const data = await fetch(base_url, init);
-    if (!data.ok) {
-        return NextResponse.json(data, { status: 400 });
-    }
-    return NextResponse.json(await data.json());
 }
-
 
 /**
  * 新建会话
@@ -32,24 +24,37 @@ export async function POST(
     request: NextRequest,
     { params }: { params: { org_id: string } }
 ) {
-    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations`;
-    let { uuid, name } = await request.json();
+    try {
+        const sessionKey: string = cookies().get('sessionKey')?.value!;
+        const { name, uuid }: any = await request.json();
+        const data = await claude.createConversation(params.org_id, sessionKey, {
+            uuid, name
+        });
+        return NextResponse.json(data);
+    } catch (err: any) {
+        return NextResponse.json(err.messages, { status: 400 });
+    }
+}
 
-    const init: RequestInit = {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-            'Cookie': `sessionKey=${cookies().get('sessionKey')?.value}`,
-        },
-        body: JSON.stringify({
-            uuid: uuid || uuidv1() as string,
-            name
-        })
+/**
+ * 删除所有会话
+ */
+export async function DELETE(
+    request: NextRequest,
+    { params }: { params: { org_id: string } }
+) {
+    try {
+        const sessionKey: string = cookies().get('sessionKey')?.value!;
+        const conversations: any = await claude.getConversations(params.org_id, sessionKey);
+        if (0 < conversations.length) {
+            for (const conversation of conversations) {
+                await claude.deleteConversationViaId(params.org_id, conversation.uuid, sessionKey);
+            }
+            return NextResponse.json('success');
+        }
+        return NextResponse.json('success', { status: 201 });
+    } catch (err: any) {
+        return NextResponse.json(err.messages, { status: 400 });
     }
-    const data = await fetch(base_url, init);
-    if (!data.ok) {
-        return NextResponse.json(data, { status: 400 });
-    }
-    return NextResponse.json(await data.json());
+
 }

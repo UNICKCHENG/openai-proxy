@@ -1,4 +1,5 @@
 import { headers } from 'next/headers'
+import { v1 as uuidv1 } from 'uuid'
 import { cache } from 'react'
 
 interface Conversation {
@@ -14,7 +15,8 @@ interface Conversation {
  * or create one if it doesn't exist.
  */
 export const autoGetConversationId = cache(async (org_id: string, req_url: string) => {
-    const conversations: Conversation[] = await getConversation(org_id, req_url);
+    const sessionKey: string = headers().get('Authorization')?.split(' ')[1]!;
+    const conversations: Conversation[] = await getConversations(org_id, sessionKey);
     if (0 < conversations.length) {
         for (const conversation of conversations) {
             if (process.env.CLAUSE_DEFAULT_CONVERSATION_NAME == conversation.name) {
@@ -22,40 +24,74 @@ export const autoGetConversationId = cache(async (org_id: string, req_url: strin
             }
         }
     }
-    const conversation: Conversation = await createConversation(org_id, req_url);
+    const conversation: Conversation = await createConversation(org_id, sessionKey);
     return conversation.uuid;
 })
 
-async function getConversation(org_id: string, req_url: string): Promise<Conversation[]> {
-    const url = new URL(`/api/claude/organizations/${encodeURIComponent(org_id)}/chat_conversations`, req_url);
-    const response = await fetch(url, {
+export async function getConversations(org_id: string, sessionKey: string): Promise<Conversation[]> {
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${encodeURIComponent(org_id)}/chat_conversations`;
+    const response = await fetch(base_url, {
         method: 'GET',
         headers: {
-            "Accept": "application/json",
-            'Cookie': `sessionKey=${headers().get('Authorization')?.split(' ')[1]}`,
-        },
-        cache: 'no-cache'
+            'Accept': 'application/json',
+            'Cookie': `sessionKey=${sessionKey}`,
+        }
     });
     if (!response.ok) {
-        throw new Error(`请求错误: ${response.body}`);
+        throw new Error(`请求错误: ${response}`);
+    }
+    return response.json();
+}
+
+export async function createConversation(org_id: string, sessionKey: string, opts?: {
+    uuid?: string,
+    name?: string,
+}): Promise<Conversation> {
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${encodeURIComponent(org_id)}/chat_conversations`;
+    const response = await fetch(base_url, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': '*/*',
+            'Cookie': `sessionKey=${sessionKey}`,
+        },
+        body: JSON.stringify({
+            uuid: opts?.uuid || uuidv1() as string,
+            name: opts?.name || process.env.CLAUSE_DEFAULT_CONVERSATION_NAME
+        })
+    });
+    if (!response.ok) {
+        throw new Error(`请求错误: ${response}`);
     }
     return await response.json();
 }
 
-async function createConversation(org_id: string, req_url: string): Promise<Conversation> {
-    const url = new URL(`/api/claude/organizations/${encodeURIComponent(org_id)}/chat_conversations`, req_url);
-    const response = await fetch(url, {
-        method: 'POST',
+export async function deleteConversationViaId(org_id: string, conversation_id: string, sessionKey: string) {
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${org_id}/chat_conversations/${conversation_id}`;
+    const response = await fetch(base_url, {
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
-            'Cookie': `sessionKey=${headers().get('Authorization')?.split(' ')[1]}`,
-        },
-        body: JSON.stringify({
-            name: process.env.CLAUSE_DEFAULT_CONVERSATION_NAME
-        })
+            'Cookie': `sessionKey=${sessionKey}`,
+        }
     });
     if (!response.ok) {
-        throw new Error(`请求错误: ${response.body}`);
+        throw new Error(`请求错误: ${response}`);
+    }
+    return response;
+}
+
+export async function getConversationMessagesViaId(org_id: string, conversation_id: string, sessionKey: string) {
+    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${org_id}/chat_conversations/${conversation_id}`;
+    const response = await fetch(base_url, {
+        method: 'GET',
+        headers: {
+            'Accept': 'application/json',
+            'Cookie': `sessionKey=${sessionKey}`,
+        }
+    });
+    if (!response.ok) {
+        throw new Error(`请求错误: ${response}`);
     }
     return await response.json();
 }

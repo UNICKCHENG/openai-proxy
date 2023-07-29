@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { cookies } from 'next/headers'
+import * as claude from '@/libs/claude'
 
 /**
  * conversation
@@ -10,24 +11,17 @@ async function handler(
     request: NextRequest,
     { params }: { params: { org_id: string, conversation_id: string } }
 ) {
-    const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${params.org_id}/chat_conversations/${params.conversation_id}`;
-    const init: RequestInit = {
-        method: request.method,
-        headers: {
-            'Content-Type': 'application/json',
-            'Accept': '*/*',
-            'Cookie': `sessionKey=${cookies().get('sessionKey')?.value}`,
-        }
-    }
-    const data = await fetch(base_url, init);
-    if (!data.ok) {
-        return NextResponse.json(data, { status: 400 });
-    }
-
+    const sessionKey: string = cookies().get('sessionKey')?.value!;
     try {
-        return NextResponse.json(await data.json());
-    } catch {
-        return NextResponse.json(data);
+        if ('DELETE' === request.method) {
+            const data = await claude.deleteConversationViaId(params.org_id, params.conversation_id, sessionKey);
+            return NextResponse.json(data);
+        } else {
+            const data = await claude.getConversationMessagesViaId(params.org_id, params.conversation_id, sessionKey);
+            return NextResponse.json(data);
+        }
+    } catch (err: any) {
+        return NextResponse.json(err.messages, { status: 400 });
     }
 }
 
