@@ -1,17 +1,19 @@
 import { NextRequest } from 'next/server'
 import * as service from '@/libs/claude'
 
+
 /**
- * 生成 AI 内容
+ * 生成 AI 内容 (无需指定 conversation)
  * 类 OpenAI 请求格式
  * @see https://platform.openai.com/docs/api-reference/chat/create
  */
 export async function POST(
     request: NextRequest,
-    { params }: { params: { org_id: string, conversation_id: string } }
+    { params }: { params: { org_id: string } }
 ) {
     const { messages, stream = false } = await request.json();
-    const init: RequestInit = service.openaiToClaudeRequest(messages, params.org_id, params.conversation_id);
+    const conversation_uuid = await service.autoGetConversationId(params.org_id, request.url);
+    const init: RequestInit = service.openaiToClaudeRequest(messages, params.org_id, conversation_uuid);
     const response = await fetch(new URL('/api/claude/append_message', request.url), init);
 
     if (!response.ok) {
