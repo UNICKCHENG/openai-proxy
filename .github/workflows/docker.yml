@@ -35,11 +35,12 @@ jobs:
         with:
           images: |
             ${{ env.actor }}/openai-proxy
+            ghcr.io/${{ env.actor }}/openai-proxy
           tags: |
             type=raw,enable={{is_default_branch}},value=latest
             type=semver,pattern={{version}}
             type=edge,branch=main
-      
+
       - name: Login to GitHub Package
         if: github.event_name != 'pull_request'
         uses: docker/login-action@v2
@@ -59,7 +60,7 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          platforms: linux/amd64,linux/arm64,linux/arm/v6,linux/arm/v7
+          platforms: linux/amd64,linux/arm64
           push: ${{ github.event_name != 'pull_request' }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
