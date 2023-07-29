@@ -5,7 +5,7 @@ API 文档请查看 👉 https://openai-proxy.apifox.cn
 `openai-proxy` 是为中国用户提供的一个方案，目前可以帮你解决的问题有：
 
 - ✅ OpenAI API 请求超时
-- ✅ OpenAI API  不支持查询费用消耗量
+- ✅ OpenAI API 不支持查询费用消耗量
 - ✅ Claude API 还在等待列表中
 - ✅ Google Bard 没有提供 API
 - 。。。
@@ -36,13 +36,14 @@ curl https://openai.aihey.cc/openai/v1/chat/completions \
   }'
 ```
 
-## OpenAI API  不支持查询费用消耗量
+## OpenAI API 不支持查询费用消耗量
 
->  自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 key (`sk-*****`) 的方式将无效。**不过您可以通过下述两个方式来请求**。
+> 自从 2023 年 04 月份开始，`https://api.openai.com/dashboard/billing/credit_grants` 只能通过网页登录生成的 session id 来请求，而 key (`sk-*****`) 的方式将无效。**不过您可以通过下述两个方式来请求**。
 
-### 方式1：使用 `openai-proxy`
+### 方式 1：使用 `openai-proxy`
 
 缺点：
+
 - 可能和网页端显示的数据存在差异（这个不知道为啥，有了解的小伙伴欢迎在 [ISSUES](https://github.com/UNICKCHENG/openai-proxy/issues) 指出）
 
 ```bash
@@ -57,10 +58,11 @@ curl https://openai.aihey.cc/openai/billing/credit_grants \
   -H "Authorization: Bearer sk-**********"
 ```
 
-### 方式2：使用网页端生成的 `sensitive_id` 
+### 方式 2：使用网页端生成的 `sensitive_id`
 
 缺点：
-- 首次需要去网页端获取（按 F12 后刷新网页） 
+
+- 首次需要去网页端获取（按 F12 后刷新网页）
 - 可能随时会失效（但目前来看只要网页端不退出登录，`sensitive_id` 时效都比较长）
 
 ![](assets/openai.png)
@@ -79,8 +81,7 @@ curl https://openai.aihey.cc/openai/billing/credit_grants\
 - 从网页端拿到 orgId
 - 从网页端拿到 sessionKey
 
-> ![](assets/claude_org_id.png)
-> ![](assets/claude_session.png)
+> ![](assets/claude_org_id.png) > ![](assets/claude_session.png)
 
 ### 获取全部会话
 
@@ -92,6 +93,7 @@ curl -X GET 'http://openai.aihey.cc/claude/organizations/dca2a902-a463-41f0-88cb
 ```
 
 ### 生成 AI 回复
+
 ```bash
 curl -X POST 'http://openai.aihey.cc/claude/append_message' \
 --header 'Accept: text/event-stream' \
@@ -112,10 +114,10 @@ curl -X POST 'http://openai.aihey.cc/claude/append_message' \
 
 ### 生成 AI 回复（类 OpenAI）
 
-已经支持类似 gpt 的请求格式，如果你使用的第三方插件支持自定义 OpenAI 地址，现在可以直接将 `https://api.openai.com` 替换成 `http://openai.aihey.cc/claude/{organization_uuid}/{conversation_uuid}`
+已经支持类似 gpt 的请求格式，如果你使用的第三方插件支持自定义 OpenAI 地址，现在可以直接将 `https://api.openai.com` 替换成 `http://openai.aihey.cc/claude/{organization_uuid}`
 
 ```bash
-curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178/5446798e-0e11-4e8f-994c-3d8386f01bd6/v1/chat/completions' \
+curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178/v1/chat/completions' \
 --header 'Accept: */*' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer your-sessionKey' \
@@ -162,18 +164,21 @@ curl -X POST https://openai.aihey.cc/google/bard \
 ![](assets/vercel.png)
 
 去域名服务商添加 CNAME
+
 ```
-cname-china.vercel-dns.com 
+cname-china.vercel-dns.com
 ```
 
 ### 方式 2：使用 Sealos 部署
+
+可参考: https://mp.weixin.qq.com/s/qbyKE_Uf_3xbWWqFKidreA
 
 [![](https://raw.githubusercontent.com/labring-actions/templates/main/Deploy-on-Sealos.svg)](https://cloud.sealos.io/?openapp=system-fastdeploy%3FtemplateName%3Dopenai-proxy)
 
 ### 方式 3：使用 Docker
 
 ```bash
-docker run -itd --name test -p 13000:3000  unickcheng/openai-proxy
+docker run -itd --name openai-proxy -p 13000:3000  unickcheng/openai-proxy
 
 # 查看服务
 docker ps -a
@@ -198,8 +203,9 @@ docker ps -a
 - 如果你是名爱折腾的开发者，或许也可以尝试 Nginx、Cloudflare 等方案
 - 如果你希望有个直接拿来用的方案，那么请放心大胆地白嫖
 
-![](assets/support.jpg)
-
+<div align=center >
+    <img src="./assets/support.jpg" height = "500" alt="打赏作者" />
+</div>
 
 ## 💖 感谢
 
@@ -209,3 +215,9 @@ docker ps -a
 - https://github.com/PawanOsman/GoogleBard
 - https://github.com/vercel-labs/ai
 - https://claude.ai
+
+ <a href="https://github.com/UNICKCHENG/openai-proxy/graphs/contributors">
+  <img src="https://contrib.rocks/image?repo=UNICKCHENG/openai-proxy" />
+ </a>
+
+[![Star History Chart](https://api.star-history.com/svg?repos=UNICKCHENG/openai-proxy&type=Date)](https://star-history.com/#UNICKCHENG/openai-proxy&Date)
