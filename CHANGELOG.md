@@ -1,3 +1,10 @@
+## [0.3.5](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.4...v0.3.5) (2023-07-31)
+
+
+### Bug Fixes
+
+* fix cross-origin requests ([eee47ed](https://github.com/UNICKCHENG/openai-proxy/commit/eee47ed70ff3974b9ad90f8bd42cd0992a470a05))
+
 ## [0.3.4](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.3...v0.3.4) (2023-07-29)
 
 
