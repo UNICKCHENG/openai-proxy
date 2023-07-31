@@ -5,8 +5,12 @@ module.exports = {
     env: {
         API_BASE: prefix,
         CLAUDE_BASE: claude_prefix,
+        // 限流，每秒最多请求次数，具体请参考 Upstash 文档
         UPSTASH_RATE_LIMIT: process.env.UPSTASH_RATE_LIMIT || 30,
-        CLAUSE_DEFAULT_CONVERSATION_NAME: process.env.CLAUSE_DEFAULT_CONVERSATION_NAME ?? "Hello World",
+        // Claude 默认会话名称
+        CLAUSE_DEFAULT_CONVERSATION_NAME: process.env.CLAUSE_DEFAULT_CONVERSATION_NAME ?? 'Hello World',
+        // 自定义跨域请求, 默认允许跨域
+        ACCESS_CONTROL_ALLOW_ORIGIN: process.env.ACCESS_CONTROL_ALLOW_ORIGIN ?? '*',
     },
     async rewrites() {
         return [
