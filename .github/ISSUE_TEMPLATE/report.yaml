@@ -1,0 +1,22 @@
+name: 举个爪 (Report)
+description: 如果你在使用的过程中有其他任何困惑，请告诉我
+title: '举个爪: '
+assignees:
+  - UNICKCHENG
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 你的困惑是什么
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 你有做过哪些尝试
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: 你希望我怎么帮你
+    validations:
+      required: true

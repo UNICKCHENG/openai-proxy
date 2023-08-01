@@ -1,0 +1,20 @@
+name: 这么明显的 Bug 竟然还不修复 (Bug Report) 
+description: File a bug report
+title: "错误反馈: "
+labels: ["bug", "triage"]
+assignees:
+  - UNICKCHENG
+body:
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: 能告诉我发生了什么么？What happened?
+      description: 请尽可能详细地描述你的问题，如果可以的话，请附上图片或者 gif. Please describe your problem in as much detail as possible, and if include pictures or gif, that would be great!
+      placeholder: Tell us what you see!
+      value: "请尽可能详细地描述你的问题，如果可以的话，请附上图片或者 gif. Please describe your problem in as much detail as possible, and if include pictures or gif, that would be great!"
+    validations:
+      required: true
+  - type: markdown
+    attributes:
+      value: |
+        感谢你的反馈，我将会尽快修复它. Thanks for the feedback, I'll fix it as soon as possible.
