@@ -1,3 +1,10 @@
+## [0.3.6](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.5...v0.3.6) (2023-08-01)
+
+
+### Bug Fixes
+
+* **claude:** fix conversation interface logging errors ([e0ecd2e](https://github.com/UNICKCHENG/openai-proxy/commit/e0ecd2eec10a76b324ae3af635e1d03414d71637))
+
 ## [0.3.5](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.4...v0.3.5) (2023-07-31)
 
 
