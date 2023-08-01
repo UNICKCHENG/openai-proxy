@@ -27,6 +27,9 @@ export async function POST(
     try {
         const sessionKey: string = cookies().get('sessionKey')?.value!;
         const { name, uuid }: any = await request.json();
+        if (undefined == name) {
+            throw new Error("Missing parameter: name");
+        }
         const data = await claude.createConversation(params.org_id, sessionKey, {
             uuid, name
         });
@@ -56,5 +59,4 @@ export async function DELETE(
     } catch (err: any) {
         return NextResponse.json(err.messages, { status: 400 });
     }
-
 }
