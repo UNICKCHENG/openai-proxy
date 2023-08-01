@@ -77,7 +77,6 @@ export async function deleteConversationViaId(org_id: string, conversation_id: s
             'Cookie': `sessionKey=${sessionKey}`,
         }
     })
-    .then((res: Response) => res.json())
     .catch((err: any) => {
         throw new Error(`请求错误: ${err.messages}`);
     });
