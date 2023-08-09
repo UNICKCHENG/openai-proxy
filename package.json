@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "@upstash/ratelimit": "^0.4.3",
-    "ai": "^2.1.31",
+    "ai": "^2.1.32",
     "googlebard": "^1.0.7",
     "next": "latest",
     "react": "^18.2.0",
