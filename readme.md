@@ -86,7 +86,7 @@ curl https://openai.aihey.cc/openai/billing/credit_grants\
 ### 获取全部会话
 
 ```bash
-curl -X GET 'http://openai.aihey.cc/claude/organizations/dca2a902-a463-41f0-88cb-b047deb40178/chat_conversations' \
+curl -X GET 'https://openai.aihey.cc/claude/organizations/dca2a902-a463-41f0-88cb-b047deb40178/chat_conversations' \
 --header 'Accept: */*' \
 --header 'Content-Type: application/json'
 --header 'Cookie: sessionKey=sk-***********' \
@@ -95,7 +95,7 @@ curl -X GET 'http://openai.aihey.cc/claude/organizations/dca2a902-a463-41f0-88cb
 ### 生成 AI 回复
 
 ```bash
-curl -X POST 'http://openai.aihey.cc/claude/append_message' \
+curl -X POST 'https://openai.aihey.cc/claude/append_message' \
 --header 'Accept: text/event-stream' \
 --header 'Cookie: sessionKey=sk-***********' \
 --header 'Content-Type: application/json' \
@@ -117,7 +117,7 @@ curl -X POST 'http://openai.aihey.cc/claude/append_message' \
 已经支持类似 gpt 的请求格式，如果你使用的第三方插件支持自定义 OpenAI 地址，现在可以直接将 `https://api.openai.com` 替换成 `http://openai.aihey.cc/claude/{organization_uuid}`
 
 ```bash
-curl -X POST 'http://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178/v1/chat/completions' \
+curl -X POST 'https://openai.aihey.cc/claude/dca2a902-a463-41f0-88cb-b047deb40178/v1/chat/completions' \
 --header 'Accept: */*' \
 --header 'Content-Type: application/json' \
 --header 'Authorization: Bearer your-sessionKey' \
@@ -155,19 +155,27 @@ curl -X POST https://openai.aihey.cc/google/bard \
 
 ## 🎉 自行部署
 
+你可以使用以下任一方式进行部署，之后只需将前文中的 `https://openai.aihey.cc` 替换成你自己的即可
+
 ### 方式 1：使用 vercel 部署
+
+注意：vercel 免费版本对函数执行时间存在限制，具体可参考 https://github.com/UNICKCHENG/openai-proxy/issues/10
 
 [![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?demo-title=openai-proxy&repository-name=openai-proxy&repository-url=https://github.com/UNICKCHENG/openai-proxy&from=github)
 
-自定义域名
+> 如果你希望也能在国内正常访问，可以试试域名解析的方案
+>
+> 1. 首先请准备一个域名
+> 
+> 2. 去域名服务商添加 CNAME
+> 
+> ```
+> cname-china.vercel-dns.com
+> ```
+>
+> 3. 自定义域名，注意请将 `openai.aihey.cc` 替换成你自己的域名
+> ![](assets/vercel.png)
 
-![](assets/vercel.png)
-
-去域名服务商添加 CNAME
-
-```
-cname-china.vercel-dns.com
-```
 
 ### 方式 2：使用 Sealos 部署
 
