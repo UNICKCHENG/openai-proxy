@@ -1,3 +1,10 @@
+## [0.3.7](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.6...v0.3.7) (2023-08-10)
+
+
+### Bug Fixes
+
+* **claude:** remove vercel ai sdk ([a7ee0cd](https://github.com/UNICKCHENG/openai-proxy/commit/a7ee0cd1bae37724d9be4ca6b746c836815f33a1))
+
 ## [0.3.6](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.5...v0.3.6) (2023-08-01)
 
 
