@@ -1,6 +1,5 @@
 import { NextRequest } from 'next/server'
 import { cookies } from 'next/headers'
-import { AnthropicStream, StreamingTextResponse } from 'ai'
 
 /**
  * 发送消息
@@ -19,6 +18,37 @@ export async function POST(request: NextRequest) {
         body: JSON.stringify(await request.json()),
     }
     const response = await fetch(base_url, init);
-    const stream = AnthropicStream(response)
-    return new StreamingTextResponse(stream);
+    const stream = await claudeWebApiStream(response);
+    return new Response(stream, {
+        headers: {
+            'Content-Type': 'text/event-stream',
+            'Connection': 'keep-alive',
+            'Cache-Control': 'no-cache, no-transform',
+        },
+    });
+}
+
+async function claudeWebApiStream(response: any) {
+    const encoder = new TextEncoder(); 
+    const decoder = new TextDecoder("utf-8");
+    const reader = response.body?.getReader();
+
+    return new ReadableStream({
+        async pull(controller) {
+            const { value, done } = await reader?.read();
+            if (done) {
+                controller.close();
+            } else {
+                let content: string = '';
+                const lines = decoder.decode(value).split("\n");
+                lines.map((line) => line.replace(/^data: /, "").trim())
+                    .filter((line) => line !== "")
+                    .map((line) => JSON.parse(line))
+                    .forEach((line) => {
+                        content += line.completion ? line.completion as string : '';
+                    });
+                controller.enqueue(encoder.encode(content));
+            }
+        },
+    })
 }
