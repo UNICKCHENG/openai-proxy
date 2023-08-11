@@ -1,3 +1,10 @@
+## [0.3.8](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.7...v0.3.8) (2023-08-11)
+
+
+### Bug Fixes
+
+* **claude:** add streaming response delay  ([#47](https://github.com/UNICKCHENG/openai-proxy/issues/47)) ([1fd52bc](https://github.com/UNICKCHENG/openai-proxy/commit/1fd52bc1768fbf797c1f1fd49c5f2cf4e0c8e0db))
+
 ## [0.3.7](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.6...v0.3.7) (2023-08-10)
 
 
