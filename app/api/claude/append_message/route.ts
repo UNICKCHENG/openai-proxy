@@ -37,7 +37,9 @@ async function claudeWebApiStream(response: any) {
         async pull(controller) {
             const { value, done } = await reader?.read();
             if (done) {
-                controller.close();
+                setTimeout(() => {
+                    controller.close();
+                }, 0);
             } else {
                 let content: string = '';
                 const lines = decoder.decode(value).split("\n");
