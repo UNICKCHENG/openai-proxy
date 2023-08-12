@@ -8,7 +8,9 @@ module.exports = {
         // 限流，每秒最多请求次数，具体请参考 Upstash 文档
         UPSTASH_RATE_LIMIT: process.env.UPSTASH_RATE_LIMIT || 30,
         // Claude 默认会话名称
-        CLAUSE_DEFAULT_CONVERSATION_NAME: process.env.CLAUSE_DEFAULT_CONVERSATION_NAME ?? 'Hello World',
+        CLAUDE_DEFAULT_CONVERSATION_NAME: process.env.CLAUDE_DEFAULT_CONVERSATION_NAME ?? 'OPENAI-PROXY',
+        // 是否自动删除会话记录，如果开启，将会自动删除过时的且以 CLAUDE_DEFAULT_CONVERSATION_NAME 开头的 conversation
+        CLAUDE_AUTO_DELETE_CONVERSATION: process.env.CLAUDE_AUTO_DELETE_CONVERSATION ?? 'true',
         // 自定义跨域请求, 默认允许跨域
         ACCESS_CONTROL_ALLOW_ORIGIN: process.env.ACCESS_CONTROL_ALLOW_ORIGIN ?? '*',
     },
