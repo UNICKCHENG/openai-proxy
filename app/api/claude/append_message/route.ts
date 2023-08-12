@@ -32,6 +32,7 @@ async function claudeWebApiStream(response: any) {
     const encoder = new TextEncoder(); 
     const decoder = new TextDecoder("utf-8");
     const reader = response.body?.getReader();
+    let temp: string = '';
 
     return new ReadableStream({
         async pull(controller) {
@@ -41,15 +42,25 @@ async function claudeWebApiStream(response: any) {
                     controller.close();
                 }, 0);
             } else {
-                let content: string = '';
-                const lines = decoder.decode(value).split("\n");
-                lines.map((line) => line.replace(/^data: /, "").trim())
-                    .filter((line) => line !== "")
-                    .map((line) => JSON.parse(line))
-                    .forEach((line) => {
-                        content += line.completion ? line.completion as string : '';
-                    });
-                controller.enqueue(encoder.encode(content));
+                try {
+                    let content: string = '';
+                    const lines = (temp + decoder.decode(value)).split("\n\n");
+                    lines.map((line) => line.replace(/^data: /, "").trim())
+                        .filter((line) => line !== "")
+                        .forEach((line) => {
+                            try {
+                                // 主要防止出现接收 line 时，字段接收不完整，如只出现 {"com
+                                const te = JSON.parse(temp + line);
+                                temp = '';
+                                content += te.completion ? te.completion : '';
+                            } catch (err: any) {
+                                temp = line;
+                            }
+                        });
+                    controller.enqueue(encoder.encode(content));
+                } catch(err: any) {
+                    console.error(err);
+                }
             }
         },
     })
