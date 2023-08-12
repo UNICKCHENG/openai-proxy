@@ -1,3 +1,10 @@
+## [0.3.12](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.11...v0.3.12) (2023-08-12)
+
+
+### Bug Fixes
+
+* **claude:** fix ssl version error ( https://github.com/UNICKCHENG/openai-proxy/pull/49 ) ([044ee70](https://github.com/UNICKCHENG/openai-proxy/commit/044ee7033d25a54e25bcf3217f83ed69d41f1408))
+
 ## [0.3.11](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.10...v0.3.11) (2023-08-12)
 
 
