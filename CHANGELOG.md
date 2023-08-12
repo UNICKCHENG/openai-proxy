@@ -1,3 +1,10 @@
+## [0.3.11](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.10...v0.3.11) (2023-08-12)
+
+
+### Bug Fixes
+
+* **claude:** fix ERR_INVALID_STATE ([e3740a7](https://github.com/UNICKCHENG/openai-proxy/commit/e3740a79b1888448c15708c2418cfd8e49bc9079))
+
 ## [0.3.10](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.9...v0.3.10) (2023-08-12)
 
 
