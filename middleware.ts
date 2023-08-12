@@ -1,6 +1,7 @@
 import { Ratelimit } from "@upstash/ratelimit"
 import { Redis } from "@upstash/redis"
 import { type NextFetchEvent, type NextRequest, NextResponse } from "next/server"
+import { url } from "@/libs/utils/url"
 
 const initRateLimit = () => {
     if (process.env.UPSTASH_REDIS_REST_TOKEN) {
@@ -33,10 +34,6 @@ export async function middleware(
     request: NextRequest,
     event: NextFetchEvent
 ): Promise<Response | undefined> {
-    // 解决反代时，https://localhost 导致 https ssl 证书错误
-    const regex = new RegExp('localhost|127\.0\.0\.1');
-    request.nextUrl.protocol = regex.test(request.nextUrl.hostname) ? 'http:' : request.nextUrl.protocol;
-
     if ('OPTIONS' == request.method) {
         return new Response(null, { status: 200, headers: corsHeaders });
     }
@@ -49,7 +46,7 @@ export async function middleware(
         const ip: String = request.ip ?? "127.0.0.1";
         const { success, pending, limit, reset, remaining } = await ratelimit.limit(`ratelimit_middleware_${ip}`);
         event.waitUntil(pending);
-        const res: NextResponse = success ? NextResponse.next() : NextResponse.rewrite(new URL('/api/blocked', request.url));
+        const res: NextResponse = success ? NextResponse.next() : NextResponse.rewrite(url('/api/blocked', request));
 
         res.headers.set("X-RateLimit-Limit", limit.toString());
         res.headers.set("X-RateLimit-Remaining", remaining.toString());

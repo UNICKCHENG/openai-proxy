@@ -1,5 +1,6 @@
 import { NextRequest } from 'next/server'
 import * as claude from '@/libs/claude'
+import { url } from '@/libs/utils/url'
 
 /**
  * 生成 AI 内容
@@ -12,7 +13,7 @@ export async function POST(
 ) {
     const { messages, stream = false } = await request.json();
     const init: RequestInit = claude.openaiToClaudeRequest(messages, params.org_id, params.conversation_id);
-    const response = await fetch(new URL('/api/claude/append_message', request.url), init);
+    const response = await fetch(url('/api/claude/append_message', request), init);
 
     if (!response.ok) {
         return new Response(response.body, { status: 400 })
