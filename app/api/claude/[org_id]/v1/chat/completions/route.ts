@@ -14,7 +14,9 @@ export async function POST(
     const { messages, stream = false } = await request.json();
     const conversation_uuid = await claude.autoGetConversationId(params.org_id, request.url);
     const init: RequestInit = claude.openaiToClaudeRequest(messages, params.org_id, conversation_uuid);
+    console.log("A01:" + request.url);
     const url = new URL(request.url).protocol === 'https:' ? request.url.replace('https:', 'http:') : request.url;
+    console.log("A02" + url);
     const response = await fetch(new URL('/api/claude/append_message', url), init);
 
     if (!response.ok) {
