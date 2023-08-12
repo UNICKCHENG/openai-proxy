@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import * as claude from '@/libs/claude'
 import * as service from './_libs'
+import { url } from '@/libs/utils/url'
 
 /**
  * 生成 AI 内容 (无需指定 conversation)
@@ -18,7 +19,7 @@ export async function POST(
             await service.generateConversationId(params.org_id),
         ])
         const init: RequestInit = claude.openaiToClaudeRequest(messages, params.org_id, conversation_uuid);
-        const result = await fetch(new URL('/api/claude/append_message', request.url), init).then(async(res) => {
+        const result = await fetch(url('/api/claude/append_message', request), init).then(async(res) => {
             if(!res.ok) {
                 throw new Error(await res.json());
             }
