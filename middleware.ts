@@ -33,6 +33,9 @@ export async function middleware(
     request: NextRequest,
     event: NextFetchEvent
 ): Promise<Response | undefined> {
+    // 解决反代时，https://localhost 导致 https ssl 证书错误
+    const regex = new RegExp('localhost|127\.0\.0\.1');
+    request.nextUrl.protocol = regex.test(request.nextUrl.hostname) ? 'http:' : request.nextUrl.protocol;
 
     if ('OPTIONS' == request.method) {
         return new Response(null, { status: 200, headers: corsHeaders });
