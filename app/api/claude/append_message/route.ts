@@ -42,25 +42,21 @@ async function claudeWebApiStream(response: any) {
                     controller.close();
                 }, 0);
             } else {
-                try {
-                    let content: string = '';
-                    const lines = (temp + decoder.decode(value)).split("\n\n");
-                    lines.map((line) => line.replace(/^data: /, "").trim())
-                        .filter((line) => line !== "")
-                        .forEach((line) => {
-                            try {
-                                // 主要防止出现接收 line 时，字段接收不完整，如只出现 {"com
-                                const te = JSON.parse(temp + line);
-                                temp = '';
-                                content += te.completion ? te.completion : '';
-                            } catch (err: any) {
-                                temp = line;
-                            }
-                        });
-                    controller.enqueue(encoder.encode(content));
-                } catch(err: any) {
-                    console.error(err);
-                }
+                let content: string = '';
+                const lines = (temp + decoder.decode(value)).split("\n\n");
+                lines.map((line) => line.replace(/^data: /, "").trim())
+                    .filter((line) => line !== "")
+                    .forEach((line) => {
+                        try {
+                            // 主要防止出现接收 line 时，字段接收不完整，如只出现 {"com
+                            const te = JSON.parse(temp + line);
+                            temp = '';
+                            content += te.completion ? te.completion : '';
+                        } catch (err: any) {
+                            temp = line;
+                        }
+                    });
+                controller.enqueue(encoder.encode(content));
             }
         },
     })

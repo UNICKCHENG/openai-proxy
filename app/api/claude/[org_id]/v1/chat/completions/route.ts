@@ -13,9 +13,9 @@ export async function POST(
 ) {
     try {
         const { messages, stream = false } = await request.json();
-        const [ conversation_uuid, _del ] = await Promise.all([
-            await service.generateConversationId(params.org_id),
+        const [ _del, conversation_uuid ] = await Promise.all([
             await service.deleteOldConversations(params.org_id),
+            await service.generateConversationId(params.org_id),
         ])
         const init: RequestInit = claude.openaiToClaudeRequest(messages, params.org_id, conversation_uuid);
         const result = await fetch(new URL('/api/claude/append_message', request.url), init).then(async(res) => {
