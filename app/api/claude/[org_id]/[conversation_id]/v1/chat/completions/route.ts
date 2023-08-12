@@ -12,9 +12,7 @@ export async function POST(
 ) {
     const { messages, stream = false } = await request.json();
     const init: RequestInit = claude.openaiToClaudeRequest(messages, params.org_id, params.conversation_id);
-    const url = new URL(request.url); 
-    url.protocol = url.host.includes('localhost') ? 'http:' : 'https:';
-    const response = await fetch(new URL('/api/claude/append_message', url), init);
+    const response = await fetch(new URL('/api/claude/append_message', request.url), init);
 
     if (!response.ok) {
         return new Response(response.body, { status: 400 })
