@@ -1,3 +1,11 @@
+## [0.3.10](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.9...v0.3.10) (2023-08-12)
+
+
+### Bug Fixes
+
+* **claude:** fix json error ([ddc1204](https://github.com/UNICKCHENG/openai-proxy/commit/ddc1204b6f720f9e3875eb476708b2488dd5d953))
+* **claude:** support auto create conversations ([d4a7da3](https://github.com/UNICKCHENG/openai-proxy/commit/d4a7da3ad56a26d7b84d5354a3357026109f6c50))
+
 ## [0.3.9](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.8...v0.3.9) (2023-08-12)
 
 
