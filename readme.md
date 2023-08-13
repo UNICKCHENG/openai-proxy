@@ -88,8 +88,8 @@ curl https://openai.aihey.cc/openai/billing/credit_grants\
 ```bash
 curl -X GET 'https://openai.aihey.cc/claude/organizations/dca2a902-a463-41f0-88cb-b047deb40178/chat_conversations' \
 --header 'Accept: */*' \
---header 'Content-Type: application/json'
---header 'Cookie: sessionKey=sk-***********' \
+--header 'Content-Type: application/json' \
+--header 'Cookie: sessionKey=sk-***********'
 ```
 
 ### 生成 AI 回复
