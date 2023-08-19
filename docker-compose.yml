@@ -7,7 +7,7 @@ version: '3.9'
 
 services:
   openai-proxy:
-    image: openai-proxy:latest
+    image: unickcheng/openai-proxy:latest
     container_name: openai-proxy
     restart: unless-stopped
     ports:
