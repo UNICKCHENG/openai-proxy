@@ -1,3 +1,10 @@
+## [0.3.13](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.12...v0.3.13) (2023-08-19)
+
+
+### Bug Fixes
+
+* **claude:** fix claude web api request failure ([3347723](https://github.com/UNICKCHENG/openai-proxy/commit/3347723c231fad1e18f14885807258e74002e5aa))
+
 ## [0.3.12](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.11...v0.3.12) (2023-08-12)
 
 
