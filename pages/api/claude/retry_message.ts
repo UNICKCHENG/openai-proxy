@@ -38,7 +38,10 @@ async function retryMessage(option: CycleTLSRequestOptions): Promise<any> {
     const cycleTLS = await initCycleTLS()
     const response = await cycleTLS.post(base_url, option)
         .then(res => res.body)
-        .catch(err => console.log(err));
+        .then(res => formatConversion(res))
+        .catch(err => {
+            throw new Error(err);
+        });
     cycleTLS.exit();
-    return formatConversion(response as string);
+    return response;
 }
