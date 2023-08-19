@@ -32,7 +32,6 @@
     "encoding": "^0.1.13",
     "semantic-release": "21.0.7",
     "standard-changelog": "^3.0.0",
-    "typescript": "^5.0.4",
-    "utf-8-validate": "^5.0.10"
+    "typescript": "^5.0.4"
   }
 }
