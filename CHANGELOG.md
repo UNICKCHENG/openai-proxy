@@ -1,3 +1,10 @@
+## [0.3.14](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.13...v0.3.14) (2023-08-19)
+
+
+### Bug Fixes
+
+* **calude:** fix service request failures in docker ([ac8d1f0](https://github.com/UNICKCHENG/openai-proxy/commit/ac8d1f0b0dbaf92fa6708fa1f25aac1b0825e0ad))
+
 ## [0.3.13](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.12...v0.3.13) (2023-08-19)
 
 
