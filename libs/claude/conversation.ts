@@ -10,24 +10,6 @@ interface Conversation {
     updated_at: string,
 }
 
-/**
- * Get a conversation with the default name,
- * or create one if it doesn't exist.
- */
-export const autoGetConversationId = cache(async (org_id: string, req_url: string) => {
-    const sessionKey: string = headers().get('Authorization')?.split(' ')[1]!;
-    const conversations: Conversation[] = await getConversations(org_id, sessionKey);
-    if (0 < conversations.length) {
-        for (const conversation of conversations) {
-            if (process.env.CLAUDE_DEFAULT_CONVERSATION_NAME == conversation.name) {
-                return conversation.uuid;
-            }
-        }
-    }
-    const conversation: Conversation = await createConversation(org_id, sessionKey);
-    return conversation.uuid;
-})
-
 export async function getConversations(org_id: string, sessionKey: string): Promise<Conversation[]> {
     const base_url: string = `${process.env.CLAUDE_BASE}/organizations/${org_id}/chat_conversations`;
     const data = await fetch(base_url, {
