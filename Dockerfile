@@ -15,7 +15,9 @@ FROM node:alpine AS runner
 WORKDIR /app
 ENV NODE_ENV production
 RUN addgroup -g 1001 -S nodejs &&\
-    adduser -S nextjs -u 1001
+    adduser -S nextjs -u 1001 &&\
+    # https://github.com/Danny-Dasilva/CycleTLS/issues/239
+    mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
 FROM runner
 COPY --from=file --chown=nextjs:nodejs /dist ./

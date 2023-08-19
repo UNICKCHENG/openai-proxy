@@ -28,7 +28,6 @@
     "@types/react": "^18.2.20",
     "@types/react-dom": "^18.2.7",
     "@vercel/analytics": "^1.0.2",
-    "bufferutil": "^4.0.7",
     "conventional-changelog-conventionalcommits": "6.1.0",
     "encoding": "^0.1.13",
     "semantic-release": "21.0.7",
