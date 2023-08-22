@@ -1,3 +1,10 @@
+## [0.3.15](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.14...v0.3.15) (2023-08-22)
+
+
+### Bug Fixes
+
+* **claude:** request timeout for append_message ([99db04b](https://github.com/UNICKCHENG/openai-proxy/commit/99db04b03fc353fca2400b5d12aba046468d5b02))
+
 ## [0.3.14](https://github.com/UNICKCHENG/openai-proxy/compare/v0.3.13...v0.3.14) (2023-08-19)
 
 
