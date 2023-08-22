@@ -21,6 +21,7 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
             'Cookie': `sessionKey=${req.cookies.sessionKey}`,
         },
         'body': JSON.stringify(req.body),
+        'timeout': 120,
     }
     const result = await retryMessage(option);
 

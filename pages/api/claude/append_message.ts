@@ -21,15 +21,14 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
             'Cookie': `sessionKey=${req.cookies.sessionKey}`,
         },
         'body': JSON.stringify(req.body),
+        'timeout': 120,
     }
     const result = await appendMessage(option);
 
     res.setHeader('Content-Type', 'text/event-stream');
     res.setHeader('Connection', 'keep-alive');
     res.setHeader('Cache-Control', 'no-cache, no-transform');
-    for(const chunk of result) {
-        res.write(chunk);
-    }
+    res.write(result);
     res.end();
 }
 
