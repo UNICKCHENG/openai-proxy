@@ -30,7 +30,7 @@
     "@vercel/analytics": "^1.0.2",
     "conventional-changelog-conventionalcommits": "6.1.0",
     "encoding": "^0.1.13",
-    "semantic-release": "21.0.9",
+    "semantic-release": "21.1.1",
     "standard-changelog": "^3.0.0",
     "typescript": "^5.0.4"
   }
