@@ -28,7 +28,9 @@ export async function iteratorToStream(response: any) {
                     content = content.substring(recorder.length);
                     recorder += content;
                 }
-                controller.enqueue(text_encoder(generateStreamResponse(content, task_id)));
+                for(const chunk of content) {
+                    controller.enqueue(text_encoder(generateStreamResponse(chunk, task_id)));
+                }
             }
         },
     })

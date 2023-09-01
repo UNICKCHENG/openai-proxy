@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next"
 import initCycleTLS, { type CycleTLSRequestOptions, formatConversion } from '@/libs/cycletls'
+import { Readable } from "stream"
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
     try {
@@ -25,11 +26,14 @@ async function post(req: NextApiRequest, res: NextApiResponse) {
     }
     const result = await appendMessage(option);
 
-    res.setHeader('Content-Type', 'text/event-stream');
+    res.setHeader('Content-Type', 'text/plain');
     res.setHeader('Connection', 'keep-alive');
     res.setHeader('Cache-Control', 'no-cache, no-transform');
-    res.write(result);
-    res.end();
+
+    const stream = new Readable();
+    stream.push(result);
+    stream.push(null);
+    stream.pipe(res);
 }
 
 async function appendMessage(option: CycleTLSRequestOptions): Promise<any> {
