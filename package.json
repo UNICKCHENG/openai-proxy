@@ -11,7 +11,7 @@
     "changelog": "standard-changelog"
   },
   "dependencies": {
-    "@upstash/ratelimit": "^0.4.3",
+    "@upstash/ratelimit": "^0.4.4",
     "cycletls": "^1.0.21",
     "googlebard": "^1.0.7",
     "next": "latest",
