@@ -90,7 +90,7 @@ export const openaiToClaudeRequest = (
             "completion": {
                 "prompt": prompt,
                 "timezone": "Asia/Shanghai",
-                "model": "claude-2"
+                "model": "claude-2.1"
             },
             "organization_uuid": org_id,
             "conversation_uuid": conversation_id,
